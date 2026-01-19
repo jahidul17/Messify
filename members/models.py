@@ -16,6 +16,7 @@ class MemberProfile(models.Model):
     guardian_phone = models.CharField(max_length=15)
 
     seat_number = models.CharField(max_length=10, unique=True)
+    seat_rent = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     join_date = models.DateField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
 
