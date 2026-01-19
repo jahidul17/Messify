@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'members',
     'meals',
     'charges',
+    'billing',
 ]
 
 MIDDLEWARE = [
