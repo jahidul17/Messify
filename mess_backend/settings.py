@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'meals',
     'charges',
     'billing',
+    'payment',
 ]
 
 MIDDLEWARE = [
