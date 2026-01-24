@@ -7,32 +7,32 @@ from .utils import initiate_sslcommerz_payment
 from rest_framework.views import APIView
 from django.utils import timezone
 
-class PaymentInitiateView(generics.GenericAPIView):
-    serializer_clas=PaymentSerializer
-    permission_classes=[IsAuthenticated]
+# class PaymentInitiateView(generics.GenericAPIView):
+#     serializer_clas=PaymentSerializer
+#     permission_classes=[IsAuthenticated]
     
-    def post(self,request):
-        bill_id=request.data.get('bill_id')
-        payment_method=request.data.get('payment_method')
+#     def post(self,request):
+#         bill_id=request.data.get('bill_id')
+#         payment_method=request.data.get('payment_method')
         
-        from billing.models import Bill
-        try:
-            bill=Bill.objects.get(id=bill_id,member=request.user.memberprofile)
-        except Bill.DoesNotExist:
-            return Response({"error":"Bill not found"},status=404)
+#         from billing.models import Bill
+#         try:
+#             bill=Bill.objects.get(id=bill_id,member=request.user.memberprofile)
+#         except Bill.DoesNotExist:
+#             return Response({"error":"Bill not found"},status=404)
         
-        payment=Payment.objects.create(
-            member=request.user.memberprofile,
-            bill=bill,
-            payment_method=payment_method,
-            paid_amount=bill.total_amount
-        )
+#         payment=Payment.objects.create(
+#             member=request.user.memberprofile,
+#             bill=bill,
+#             payment_method=payment_method,
+#             paid_amount=bill.total_amount
+#         )
         
-        payment_url=initiate_sslcommerz_payment(payment)
-        return Response({
-            "transaction_id":payment.transaction_id,
-            "payment_url":payment_url,
-        })
+#         payment_url=initiate_sslcommerz_payment(payment)
+#         return Response({
+#             "transaction_id":payment.transaction_id,
+#             "payment_url":payment_url,
+#         })
         
 class PaymentHistoryView(generics.ListAPIView):
     serializer_class=PaymentSerializer
